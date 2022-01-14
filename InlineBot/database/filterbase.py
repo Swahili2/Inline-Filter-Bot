@@ -8,12 +8,10 @@ from . import DB_URI, DB_NAME
 dbclient = pymongo.MongoClient(DB_URI)
 database = dbclient[DB_NAME]
 
-filter_collection = database['filters']
-
-async def add_filter(text, reply_text, btn, file, alert, msg_type, id):
+async def add_filter(text, reply_text, btn, file, alert, msg_type, id,user_id):
     
     fdata = {'text': str(text)}
-    
+    filter_collection = database[str(user_id)]
     button = str(btn)
     button = button.replace('pyrogram.types.InlineKeyboardButton', 'InlineKeyboardButton')
     found = filter_collection.find_one(fdata)
