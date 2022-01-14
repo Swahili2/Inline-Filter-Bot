@@ -33,7 +33,7 @@ async def new_filter(client: CodeXBotz, message: Message):
 
     strid = str(uuid.uuid4())
     args = message.text.html.split(None, 1)
-    
+    user_id = message.from_user.id
     if len(args) < 2:
         await message.reply_text("Use Correct format 😐", quote=True)
         return
@@ -222,7 +222,7 @@ async def new_filter(client: CodeXBotz, message: Message):
             pass
         return
 
-    await add_filter(text, reply_text, btn, fileid, alert, msg_type, strid)
+    await add_filter(text, reply_text, btn, fileid, alert, msg_type, strid,user_id)
     reply_markup = InlineKeyboardMarkup(
         [
             [
