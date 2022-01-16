@@ -36,7 +36,8 @@ async def delete_filter(message, text):
     else:
         await message.reply_text("Couldn't find that filter!", quote=True)
 
-async def get_all_filters():
+async def get_all_filters(user_id):
+    filter_collection = database[str(user_id)]
     texts = []
     query = filter_collection.find().sort('text', 1)
     try:
@@ -47,12 +48,13 @@ async def get_all_filters():
         pass
     return texts
 
-async def count_filters():
+async def count_filters(user_id):
+    filter_collection = database[str(user_id)]
     count = filter_collection.find().count()
     return count
 
 async def del_all(message):
-    
+    filter_collection = database[f'{message.from_user.id}']
     if not await count_filters():
         await message.edit_text("Nothing to Delete.!")
         return
@@ -64,7 +66,8 @@ async def del_all(message):
         await message.edit_text(f"Couldn't remove all of your filters")
         return
 
-async def get_filters(text):
+async def get_filters(text,user_id):
+    filter_collection = database[str(user_id)]
     if text == "":
         documents = filter_collection.find()
         doc_list = list(documents)
@@ -76,13 +79,15 @@ async def get_filters(text):
         documents = filter_collection.find(query).sort('text', 1).limit(50)
         return documents
 
-async def get_alerts(id):
+async def get_alerts(id,user_id):
+    filter_collection = database[str(user_id)]
     document = filter_collection.find_one({'_id': id})
     if not document:
         return False
     return document['alert']
 
 async def get_data():
+    filter_collection = database[str(user_id)]
     documents = filter_collection.find().sort('text', 1)
     doc_list = list(documents)
     return str(doc_list)
