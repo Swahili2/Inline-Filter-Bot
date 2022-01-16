@@ -25,8 +25,22 @@ from InlineBot.database import (
 
 @CodeXBotz.on_inline_query(filters.inline)
 async def give_filter(client: CodeXBotz, query: InlineQuery):
+    acess,group_id = await present_in_userbase(query.from_user.id)
+    if not access:
+        result = InlineQueryResultArticle(
+                    title=keyword.upper(),
+                    input_message_content=InputTextMessageContent(message_text = f'hellow'),
+                    description='Text',
+                )
+        await query.answer(
+            results = result,
+            is_personal = True,
+            switch_pm_text = 'hi',
+            switch_pm_parameter = 'start'
+        )
+        return
     text = query.query.lower()
-    documents = await get_filters(text,query.from_user.id)
+    documents = await get_filters(text,group_id)
     results = []
     for document in documents:
         reply_text = document['reply']
