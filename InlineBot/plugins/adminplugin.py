@@ -25,7 +25,7 @@ from pyrogram.errors import (
 @CodeXBotz.on_message(filters.private & filters.command('stats') & filters.admins)
 async def getstatus(client: CodeXBotz, message: Message):
     sts_msg = await message.reply('Getting Details..')
-    stats = await get_status()
+    stats = await get_status(message.from_user.id)
     await sts_msg.edit(stats)
     
 @CodeXBotz.on_message(filters.private & filters.command('broadcast') & filters.admins & filters.reply)
