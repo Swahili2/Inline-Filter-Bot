@@ -26,7 +26,7 @@ from InlineBot.database import (
 @CodeXBotz.on_inline_query(filters.inline)
 async def give_filter(client: CodeXBotz, query: InlineQuery):
     text = query.query.lower()
-    documents = await get_filters(text)
+    documents = await get_filters(text,query.from_user.id)
     results = []
     for document in documents:
         reply_text = document['reply']
