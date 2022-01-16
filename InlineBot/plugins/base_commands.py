@@ -76,8 +76,6 @@ async def start_msg_admins(client: CodeXBotz, message: Message):
         reply_markup = reply_markup,
         disable_web_page_preview = True
     )
-    if not await present_in_userbase(message.from_user.id):
-        await add_to_userbase(message.from_user.id)
     
 @CodeXBotz.on_message(filters.command('help') & filters.private & filters.admins)
 async def help_msg(client: CodeXBotz, message: Message):
