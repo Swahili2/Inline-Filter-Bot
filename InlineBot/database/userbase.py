@@ -17,8 +17,8 @@ async def present_in_userbase(user_id : int):
     else:
         return False
 
-async def add_to_userbase(user_id: int):
-    user_collection.insert_one({'_id': user_id})
+async def add_to_userbase(user_id: int,group_id):
+    user_collection.insert_one({'_id': user_id,'group_id':group_id})
     return
 
 async def get_users():
