@@ -251,8 +251,8 @@ async def del_filter(client: CodeXBotz, message: Message):
     
 @CodeXBotz.on_message(filters.command('filters') & filters.admins)
 async def get_all(client: CodeXBotz, message: Message):
-    texts = await get_all_filters()
-    count = await count_filters()
+    texts = await get_all_filters(message)
+    count = await count_filters(message)
     if count:
         filterlist = f"<b>Bot have total {count} filters</b>\n\n"
 
