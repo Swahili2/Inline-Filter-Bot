@@ -24,7 +24,7 @@ async def add_filter(text, reply_text, btn, file, alert, msg_type, id,user_id):
 async def delete_filter(message, text):
     
     query = {'text':text}
-    
+    filter_collection = database[f'{message.from_user.id}']
     found = filter_collection.find_one(query)
     
     if found:
